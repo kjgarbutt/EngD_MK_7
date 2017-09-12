@@ -38,7 +38,7 @@ import ec.util.MersenneTwisterFast;
  * @author KJGarbutt
  *
  */
-public class MK_6 extends SimState	{
+public class MK_7 extends SimState	{
 
 	//////////////////////////////////////////////////////////////////////////////
 	///////////////////////////// MODEL PARAMETERS ///////////////////////////////
@@ -68,18 +68,18 @@ public class MK_6 extends SimState	{
     public HashMap<GeomPlanarGraphEdge, ArrayList<agents.MainAgent>> edgeTraffic =
         new HashMap<GeomPlanarGraphEdge, ArrayList<agents.MainAgent>>();
     public GeomVectorField mainagents = new GeomVectorField();
-    
+
     // Model ArrayLists for agents and OSVI Polygons
     ArrayList<agents.MainAgent> agentList = new ArrayList<agents.MainAgent>();
     ArrayList<Polygon> polys = new ArrayList<Polygon>();
     ArrayList<String> csvData = new ArrayList<String>();
-    
+
     // Here we force the agents to go to or from work at any time
     public boolean goToWork = true;
     public boolean getGoToWork()	{
         return goToWork;
     }
-    
+
     //////////////////////////////////////////////////////////////////////////////
 	/////////////////////////// BEGIN FUNCTIONS //////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////
@@ -88,11 +88,11 @@ public class MK_6 extends SimState	{
      * //////////////////////// Model Constructor ////////////////////////////////
      * Model Constructor
      */
-    public MK_6(long seed)	{
+    public MK_7(long seed)	{
         super(seed);
         random = new MersenneTwisterFast(12345);
     }
-    
+
     /**
      * //////////////////////// OSVI Polygon Setup ///////////////////////////////
      * Polygon Setup
@@ -103,7 +103,7 @@ public class MK_6 extends SimState	{
         Bag ps = world.getGeometries();
         polys.addAll(ps);
         }
-    
+
     /**
      * //////////////////////// Model Initialisation /////////////////////////////
      * Model Initialisation
@@ -127,16 +127,16 @@ public class MK_6 extends SimState	{
         			MK_2/
         				.java files
          */
-        
+
         try {
             // read in the roads shapefile to create the transit network
-        	URL roadsFile = MK_6.class.getResource
+        	URL roadsFile = MK_7.class.getResource
         			("/data/Final_ITN.shp");
             ShapeFileImporter.read(roadsFile, roads);
             System.out.println("	Roads shapefile: " +roadsFile);
-            
+
             Envelope MBR = roads.getMBR();
-            
+
             // read in the LSOA shapefile to create the backgrounds
             // URL areasFile = MK_4.class.getResource
             //		("/data/Final_LSOA.shp");
@@ -148,16 +148,16 @@ public class MK_6 extends SimState	{
 	        //   }
 	        //   catch (FileNotFoundException ex){
 	        //   	}
-            
-            URL wardsFile = MK_6.class.getResource
+
+            URL wardsFile = MK_7.class.getResource
                     ("/data/Final_LSOA.shp");
             ShapeFileImporter.read(wardsFile, world, Polygon.class);
             System.out.println("	LSOA shapefile: " +wardsFile);
-           
+
             MBR.expandToInclude(world.getMBR());
 
             // read in the FZ3 file
-            URL flood3File = MK_6.class.getResource
+            URL flood3File = MK_7.class.getResource
             		("/data/NorfolkFZ3.shp");
             ShapeFileImporter.read(flood3File, flood3);
             System.out.println("	FZ3 shapefile: " +flood3File);
@@ -165,13 +165,13 @@ public class MK_6 extends SimState	{
             MBR.expandToInclude(flood3.getMBR());
 
             // read in the FZ2 file
-            URL flood2File = MK_6.class.getResource
+            URL flood2File = MK_7.class.getResource
             		("/data/NorfolkFZ2.shp");
             ShapeFileImporter.read(flood2File, flood2);
             System.out.println("	FZ2 shapefile: " +flood2File);
 
             MBR.expandToInclude(flood2.getMBR());
-            
+
             /*
             // read in the household files
             URL HouseholdsFZFile = MK_2.class.getResource
@@ -180,7 +180,7 @@ public class MK_6 extends SimState	{
             System.out.println("Households in FZ shapefile: " +HouseholdsFZFile);
 
             MBR.expandToInclude(HouseholdsFZ.getMBR());
-            
+
             // read in the FZ2 file
             URL HouseholdsFile = MK_2.class.getResource
             		("/data/Buildings_NOT_in_FZ_Snapped_to_ITN.shp");
@@ -190,7 +190,7 @@ public class MK_6 extends SimState	{
 
             MBR.expandToInclude(Households.getMBR());
             */
-            
+
             createNetwork();
             setup();
 
@@ -211,7 +211,7 @@ public class MK_6 extends SimState	{
             // initialize agents using the following source .CSV files
             agentGoals("/data/AgentGoals.csv");
             populateAgent("/data/NorfolkITNAGENT.csv");
-            
+
             System.out.println();
             System.out.println("Starting simulation...");
 
@@ -247,7 +247,7 @@ public class MK_6 extends SimState	{
                 public void step(SimState state)
                 {
 
-                    MK_6 gstate = (MK_6) state;
+                    MK_7 gstate = (MK_7) state;
 
                     // pass to check if anyone has not yet reached work
                     //for (MainAgent a : gstate.agentList)
@@ -279,7 +279,7 @@ public class MK_6 extends SimState	{
 			e.printStackTrace();
 		}
     }
-    
+
 	/**
 	 * //////////////////////// Model Finish & Cleanup ///////////////////////////
 	 * Finish the simulation and clean up
@@ -310,7 +310,7 @@ public class MK_6 extends SimState	{
 
         for (Object o : network.getEdges())	{
             GeomPlanarGraphEdge e = (GeomPlanarGraphEdge) o;
-            
+
             idsToEdges.put(e.getIntegerAttribute("ROAD_ID").intValue(), e);
 
             e.setData(new ArrayList<agents.MainAgent>());
@@ -318,48 +318,48 @@ public class MK_6 extends SimState	{
 
         addIntersectionNodes(network.nodeIterator(), junctions);
     }
-    
+
 	/**
 	* ///////////////////////// Setup agentGoals /////////////////////////////////
 	* Read in the agent goals CSV
 	* @param agentfilename
-	* @return 
-	* 
-	* Here we set the 'goals', or destinations, which relate to ROAD_ID 
+	* @return
+	*
+	* Here we set the 'goals', or destinations, which relate to ROAD_ID
     * in NorfolkITNLSOA.csv/.shp...
-    * 
+    *
     * 30250 = Norfolk & Norwich Hospital
     * 74858 = James Paget Hospital (Does not work!)
     * 18081 = Queen Elizabeth Hospital
     * 46728 = BRC Norwich Office
     * 49307 = Sprowston Fire Station - BRC Fire & Emergency Support
-    * 
+    *
 	* 	//Integer[] goals =	{	// MainAgent
-    *	//60708, 70353, 75417, 29565, 3715, 15816, 47794, 16561, 70035, 
+    *	//60708, 70353, 75417, 29565, 3715, 15816, 47794, 16561, 70035,
     *	//55437, 98, 45, 987, 345, 5643, 234, 21, 8765, 10345
     *	//};
 	*/
 	public ArrayList<String> agentGoals(String agentfilename) throws IOException{
 		String csvGoal = null;
 		BufferedReader agentGoalsBuffer = null;
-		
-		String agentFilePath = MK_6.class.getResource(agentfilename).getPath();
+
+		String agentFilePath = MK_7.class.getResource(agentfilename).getPath();
 		FileInputStream agentfstream = new FileInputStream(agentFilePath);
 		System.out.println("Reading Agent's Goals CSV file: " +agentFilePath);
-	
+
 		try {
 			agentGoalsBuffer = new BufferedReader(new InputStreamReader(agentfstream));
 			agentGoalsBuffer.readLine();
 			while ((csvGoal = agentGoalsBuffer.readLine()) != null) {
 				String[] splitted = csvGoal.split(",");
-	
+
 				ArrayList<String> agentGoalsResult = new ArrayList<String>(splitted.length);
 				for (String data : splitted)
 					agentGoalsResult.add(data);
 				csvData.addAll(agentGoalsResult);
 			}
 			System.out.println("Full csvData Array: " +csvData);
-	
+
 		} finally {
 			if (agentGoalsBuffer != null)
 				agentGoalsBuffer.close();
@@ -374,7 +374,7 @@ public class MK_6 extends SimState	{
      */
     public void populateAgent(String filename)	{
         try	{
-            String filePath = MK_6.class.getResource(filename).getPath();
+            String filePath = MK_7.class.getResource(filename).getPath();
             FileInputStream fstream = new FileInputStream(filePath);
             System.out.println();
             System.out.println("Populating model with Agents: " +filePath);
@@ -394,18 +394,18 @@ public class MK_6 extends SimState	{
                 //System. out.println("MoveRate = " + moveRate );
 				//int mainAgentSpeed = MainAgent.MoveRate;
                 //System.out.println("Main Agent speed = " +mainAgentSpeed);
-                
+
                 String homeTract = bits[3];
                 //String id_id = bits[3];
                 String ROAD_ID = bits[3];
                 //String workTract = bits[4];
-              
+
                 Random randomiser = new Random();
                 String random = csvData.get(new Random().nextInt(csvData.size()));
                 String goalTract = random;
                 System.out.println();
                 System.out.println("Agent goalTract: " +goalTract);
-                
+
                 GeomPlanarGraphEdge startingEdge = idsToEdges.get(
                         (int) Double.parseDouble(ROAD_ID));
                 GeomPlanarGraphEdge goalEdge = idsToEdges.get(
@@ -422,7 +422,7 @@ public class MK_6 extends SimState	{
                 	//pop; i++)	{ 	// NO IDEA IF THIS MAKES A DIFFERENCE!?!
                     agents.MainAgent a = new agents.MainAgent(this, homeTract, startingEdge, goalEdge);
                     /*System.out.println(
-                    		"Main Agent " + i + ":	" 
+                    		"Main Agent " + i + ":	"
             				+ " Home: " +homeTract + ";	"
                     		+ "	Work: " +workTract + ";	"
                     		//+ " Starting Edge: " +startingEdge + ";"
@@ -454,7 +454,7 @@ public class MK_6 extends SimState	{
 		}
     }
 
-    /** 
+    /**
      * //////////////////////// Network Intersections ////////////////////////////
      * adds nodes corresponding to road intersections to GeomVectorField
      *
@@ -486,7 +486,7 @@ public class MK_6 extends SimState	{
      * Main function allows simulation to be run in stand-alone, non-GUI mode
      */
     public static void main(String[] args)	{
-        doLoop(MK_6.class, args);
+        doLoop(MK_7.class, args);
         System.exit(0);
     }
 }

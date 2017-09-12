@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import network.AStar;
-import sim.MK_6;
+import sim.MK_7;
 import sim.engine.SimState;
 import sim.engine.Steppable;
 import sim.portrayal.DrawInfo2D;
@@ -38,7 +38,7 @@ public final class MainAgent implements Steppable	{
     /////////////////////////////// PARAMETERS ///////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////
 
-    MK_6 world;
+    MK_7 world;
     // Residence/Work Attributes
 
     String homeTract = "";
@@ -80,7 +80,7 @@ public final class MainAgent implements Steppable	{
 	 * //@param workNode - Coordinate indicating the Agent's workplace
 	 * //@param world - reference to the containing NorfolkRouting instance
 	 */
-    public MainAgent(MK_6 g, String homeTract, GeomPlanarGraphEdge startingEdge, 
+    public MainAgent(MK_7 g, String homeTract, GeomPlanarGraphEdge startingEdge,
     		GeomPlanarGraphEdge goalEdge)	{
 	   world = g;
 
@@ -92,11 +92,11 @@ public final class MainAgent implements Steppable	{
 
 	   // set the location to be displayed
 	   //GeometryFactory fact = new GeometryFactory();
-	   
+
 	   location = new MasonGeometry(fact.createPoint(new Coordinate(10, 10))) ;
-	   
+
 	   location.isMovable = true;
-	   
+
 	   // Now set up attributes for this agent
 	   if (g.random.nextBoolean())	{
            location.addStringAttribute("TYPE", "4x4");
@@ -108,7 +108,7 @@ public final class MainAgent implements Steppable	{
            int age = (int) (40.0 + 9.0 * g.random.nextGaussian());
            location.addIntegerAttribute("AGE", age);
        }
-	   
+
 	   // Not everyone moves at the same speed
        // Assigns random speed
 	   //moveRate *= Math.abs(g.random.nextGaussian());
@@ -116,37 +116,37 @@ public final class MainAgent implements Steppable	{
 	   moveRate = (int)(Math.random()*70) + 1;
        System. out.println("Agent's MoveRate = " + moveRate );
        location.addDoubleAttribute("MOVE RATE", moveRate);
-	   
+
 	   Coordinate startCoord = null;
 	   startCoord = homeNode.getCoordinate();
-	   updatePosition(startCoord);	
+	   updatePosition(startCoord);
     }
-    
+
     //////////////////////////////////////////////////////////////////////////////
     //////////////////////////// AGENT ATTRIBUTES ////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////
-    
-    /** 
+
+    /**
      * ////////////////////////// Agent Type /////////////////////////////////////
-     * @return string indicating whether Agent is a "4x4" or a "Car" 
+     * @return string indicating whether Agent is a "4x4" or a "Car"
      */
     public String getType()	{
         return location.getStringAttribute("TYPE");
     }
-    
-    /** 
+
+    /**
 	* ////////////////////////// Agent Colour ////////////////////////////////////
 	* Want to change the colour of the Agent's depending on their status:
 	* "heading back to HQ" or "heading to goal"
 	*
 	*/
-    
+
     public final void draw(Object object, Graphics2D graphics, DrawInfo2D info)	{
  	   if( reachedGoal )
  	       graphics.setColor( headingToGoal );
  	   else
  	       graphics.setColor( headingToHQ );
- 	
+
  	   // this code was stolen from OvalPortrayal2D
  	   int x = (int)(info.draw.x - info.draw.width / 20.0);
  	   int y = (int)(info.draw.y - info.draw.height / 20.0);
@@ -154,19 +154,19 @@ public final class MainAgent implements Steppable	{
  	   int height = (int)(info.draw.height);
  	   graphics.fillOval(x,y,width, height);
     }
-    
+
     //////////////////////////////////////////////////////////////////////////////
     //////////////////////////////// ROUTING /////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////
 
-	/** 
+	/**
 	* ////////////////////////// A* Route Initialisation /////////////////////////
 	* Initialization of an Agent: find an A* path to work!
 	*
 	* @param state
 	* @return whether or not the agent successfully found a path to work
 	*/
-   public boolean start(MK_6 state)	{
+   public boolean start(MK_7 state)	{
        findNewAStarPath(state);
        if (pathFromHomeToWork.isEmpty())	{
            System.out.println("Initialization of a Agent (" +homeTract
@@ -182,7 +182,7 @@ public final class MainAgent implements Steppable	{
     * ////////////////////////// Plot A* Route ///////////////////////////////////
     * Plots a path between the Agent's home Node and its work Node
     */
-   private void findNewAStarPath(MK_6 geoTest)	{
+   private void findNewAStarPath(MK_7 geoTest)	{
 
        // get the home and work Nodes with which this Agent is associated
        Node currentJunction = geoTest.network.findNode(location.geometry.getCoordinate());
@@ -237,7 +237,7 @@ public final class MainAgent implements Steppable	{
        }
 
        // make sure that we're heading in the right direction
-       //boolean toWork = ((MK_6) state).goToWork;
+       //boolean toWork = ((MK_7) state).goToWork;
        // if ((toWork && pathDirection < 0) || (!toWork && pathDirection > 0))	{
        //     flipPath();
        // }

@@ -30,7 +30,7 @@ import agents.MainAgent;
  * @author KJGarbutt
  *
  */
-public class MK_6WithUI extends GUIState	{
+public class MK_7WithUI extends GUIState	{
 
 	//////////////////////////////////////////////////////////////////////////////
 	/////////////////////////// DISPLAY FUNCTIONS ////////////////////////////////
@@ -59,16 +59,16 @@ public class MK_6WithUI extends GUIState	{
      * ///////////////////////// Default constructor /////////////////////////////
      * Default constructor
      */
-    protected MK_6WithUI(SimState state)	{
+    protected MK_7WithUI(SimState state)	{
             super(state);
         }
-    
+
     /**
      * //////////////////////// Portrayal Setup //////////////////////////////////
      * Sets up the portrayals and charts for the simulation
      */
     private void setupPortrayals()	{
-    	sim.MK_6 world = (sim.MK_6) state;
+    	sim.MK_7 world = (sim.MK_7) state;
 
         // the polygon portrayal
         polyPortrayal.setField(world.world);
@@ -81,13 +81,13 @@ public class MK_6WithUI extends GUIState	{
 
         /**
          * ///////////////////////// Main Function ///////////////////////////////
-         * 
+         *
          * Main function to run the simulation
          * @param args
          */
         public static void main(String[] args)	{
-        	MK_6WithUI simple = new MK_6WithUI(
-        			new sim.MK_6(System.currentTimeMillis()));
+        	MK_7WithUI simple = new MK_7WithUI(
+        			new sim.MK_7(System.currentTimeMillis()));
             Console c = new Console(simple);
             c.setVisible(true);
         }
@@ -97,7 +97,7 @@ public class MK_6WithUI extends GUIState	{
          * @return name of the simulation
          */
         public static String getName()	{
-            return "EngD ABM Model MK_6";
+            return "EngD ABM Model MK_7";
         }
 
         /**
@@ -116,10 +116,10 @@ public class MK_6WithUI extends GUIState	{
          */
         public void start()	{
             super.start();
-            
+
             setupPortrayals();
 
-            sim.MK_6 world = (sim.MK_6) state;
+            sim.MK_7 world = (sim.MK_7) state;
 
             maxSpeed = new XYSeries("Max Speed");
             avgSpeed = new XYSeries("Average Speed");
@@ -133,7 +133,7 @@ public class MK_6WithUI extends GUIState	{
 				private static final long serialVersionUID = -3749005402522867098L;
 
 				public void step(SimState state)	{
-                	sim.MK_6 world = (sim.MK_6) state;
+                	sim.MK_7 world = (sim.MK_7) state;
                     double maxS = 0, minS = 10000, avgS = 0, count = 0;
                     //////////////////////////// Main Agent //////////////////////
                     for (MainAgent a : world.agentList)	{
@@ -150,7 +150,7 @@ public class MK_6WithUI extends GUIState	{
                             minS = speed;
                         }
                     }
-                    
+
                     double time = state.schedule.time();
                     avgS /= count;
                     maxSpeed.add(time, maxS, true);
@@ -178,14 +178,14 @@ public class MK_6WithUI extends GUIState	{
             agentPortrayal.setField(world.agents);
             agentPortrayal.setPortrayalForAll(new GeomPortrayal(Color.MAGENTA, 150, true));
             //agentPortrayal.setPortrayalForAll(new GeomPortrayal());
-            
+
             display.reset();
             display.setBackdrop(Color.WHITE);
             display.repaint();
 
         }
 
-        /** 
+        /**
          * /////////////////////// Poly Portrayal Colours ////////////////////////
          * The portrayal used to display Polygons with the appropriate color
          * */
@@ -203,17 +203,17 @@ public class MK_6WithUI extends GUIState	{
                 {
                     paint = Color.red;
                 }
-                
+
                 else if (poly.getSoc().equals("orange"))
                 {
                     paint = Color.orange;
                 }
-                
+
                 else if (poly.getSoc().equals("yellow"))
                 {
                     paint = Color.yellow;
                 }
-                
+
                 else if (poly.getSoc().equals("green"))
                 {
                     paint = Color.green;
@@ -227,7 +227,7 @@ public class MK_6WithUI extends GUIState	{
             }
 
         }
-        
+
         /**
          * /////////////////////// Visualisation Format //////////////////////////
          * Initializes the simulation visualization. Sets up the display
@@ -244,7 +244,7 @@ public class MK_6WithUI extends GUIState	{
             // display.setClipping(false);
 
             displayFrame = display.createFrame();
-            displayFrame.setTitle("EngD ABM Model MK_6");
+            displayFrame.setTitle("EngD ABM Model MK_7");
             c.registerFrame(displayFrame); // register the frame so it appears in
 
             // Put portrayals in order from bottom layer to top
