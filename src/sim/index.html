@@ -1,0 +1,21 @@
+<html> <head><title>MK_6</title></head>
+    <body>
+        <table border=0 cellspacing=0 cellpadding=6>
+            <tr>
+                <td valign=top><img alt="MK_3 thumb nail"  src="MK_3_75x75.png"><td valign=top>
+                    <h2>MK_6</h2>
+                    By Kurtis Garbutt
+        </table>
+
+        "MK_6" is the sixth iteration of my EngD project model.
+        The model imports a number of GIS shapefiles, creates multiple sets of agents, and moves those agents from A to B.
+
+        <p>The simulation starts by reading and displaying GIS data describing the road network of Norfolk,
+          the political boundaries, the area's flood zone and the Open Source Vulnerability Index (OS-VI).
+          The simulation reads a .CSV file that includes road network data and demographic data and places agents on the road network
+          at pre-assigned locations. These agents are also assigned destinations by the user (see: 'goals').
+          When the simulation starts, the agents determine the shortest path (A*) to their destination and move towards their destinations.
+          Once they arrive, the agents wait for all other agents to arrive before they return to their start points.
+          The cycle continues until ended by the user.
+    </body>
+</html>
