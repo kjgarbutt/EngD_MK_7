@@ -234,7 +234,8 @@ public class MK_7 extends SimState	{
             //		Integer.MAX_VALUE, 1.0);
 
 
-            /** Steppable that flips Agent paths once everyone reaches their destinations
+            /** Steppable that flips Agent paths once everyone reaches
+             * their destinations
 
             Steppable flipper = new Steppable() {
                 @Override
@@ -329,12 +330,14 @@ public class MK_7 extends SimState	{
 		System.out.println("Reading Agent's Goals CSV file: " +agentFilePath);
 
 		try {
-			agentGoalsBuffer = new BufferedReader(new InputStreamReader(agentfstream));
+			agentGoalsBuffer = new BufferedReader
+					(new InputStreamReader(agentfstream));
 			agentGoalsBuffer.readLine();
 			while ((csvGoal = agentGoalsBuffer.readLine()) != null) {
 				String[] splitted = csvGoal.split(",");
 
-				ArrayList<String> agentGoalsResult = new ArrayList<String>(splitted.length);
+				ArrayList<String> agentGoalsResult = 
+						new ArrayList<String>(splitted.length);
 				for (String data : splitted)
 					agentGoalsResult.add(data);
 				csvData.addAll(agentGoalsResult);
@@ -388,12 +391,15 @@ public class MK_7 extends SimState	{
                 GeomPlanarGraphEdge startingEdge = idsToEdges.get(
                         (int) Double.parseDouble(ROAD_ID));
                 GeomPlanarGraphEdge goalEdge = idsToEdges.get(
-                        (int) Double.parseDouble(goalTract));	//reads the .CSV column
-                		//goals[ random.nextInt(goals.length)]); // uses the hardcoded 'goals' from above
+                        (int) Double.parseDouble(goalTract));
+                		//reads the .CSV column
+                		//goals[ random.nextInt(goals.length)]);
+                		// uses the hardcoded 'goals' from above
 
                 for (int i = 0; i < pop; i++)	{
                 	//pop; i++)	{ 	// NO IDEA IF THIS MAKES A DIFFERENCE!?!
-                    agents.MainAgent a = new agents.MainAgent(this, homeTract, startingEdge, goalEdge);
+                    agents.MainAgent a = new agents.MainAgent
+                    		(this, homeTract, startingEdge, goalEdge);
                     
                     boolean successfulStart = a.start(this);
                     //System.out.println("Starting...");
@@ -403,7 +409,7 @@ public class MK_7 extends SimState	{
                     	continue; // DON'T ADD IT if it's bad
                     }
 
-                    // MasonGeometry newGeometry = new MasonGeometry(a.getGeometry());
+                    //MasonGeometry newGeometry = new MasonGeometry(a.getGeometry());
                     MasonGeometry newGeometry = a.getGeometry();
                     newGeometry.isMovable = true;
                     agents.addGeometry(newGeometry);

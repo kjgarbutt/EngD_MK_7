@@ -26,7 +26,6 @@ public class AStar {
 	/////////////////////////////// PARAMETERS ///////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////
     public ArrayList<GeomPlanarGraphDirectedEdge> astarPath(Node start, Node goal)	{
-
         // initial check
         if (start == null || goal == null)	{
             System.out.println("Error: invalid node provided to AStar");
@@ -187,7 +186,6 @@ public class AStar {
      *
      */
     class AStarNodeWrapper	{
-
         // the underlying Node associated with the metainformation
         Node node;
         // the Node from which this Node was most profitably linked

@@ -46,8 +46,8 @@ public class MK_7WithUI extends GUIState	{
     private JFrame displayFrame;
 
     //private GeomVectorFieldPortrayal lsoaPortrayal = new GeomVectorFieldPortrayal();
-    GeomVectorFieldPortrayal polyPortrayal = new GeomVectorFieldPortrayal();
-    private GeomVectorFieldPortrayal roadsPortrayal = new GeomVectorFieldPortrayal();
+    GeomVectorFieldPortrayal polyPortrayal = new GeomVectorFieldPortrayal(true);
+    private GeomVectorFieldPortrayal roadsPortrayal = new GeomVectorFieldPortrayal(true);
     private GeomVectorFieldPortrayal flood3Portrayal = new GeomVectorFieldPortrayal();
     private GeomVectorFieldPortrayal flood2Portrayal = new GeomVectorFieldPortrayal();
     private GeomVectorFieldPortrayal agentPortrayal = new GeomVectorFieldPortrayal();
@@ -170,19 +170,19 @@ public class MK_7WithUI extends GUIState	{
         	 */
 
             roadsPortrayal.setField(world.roads);
-            roadsPortrayal.setPortrayalForAll(new GeomPortrayal(Color.DARK_GRAY, 0.0005, false));
-
+            roadsPortrayal.setPortrayalForAll(new GeomPortrayal
+            		(Color.DARK_GRAY, 0.0005, false));
             polyPortrayal.setField(world.world);
             polyPortrayal.setPortrayalForAll(new PolyPortrayal());
-
             flood3Portrayal.setField(world.flood3);
-            flood3Portrayal.setPortrayalForAll(new GeomPortrayal(Color.CYAN, true));
-
+            flood3Portrayal.setPortrayalForAll(new GeomPortrayal
+            		(Color.CYAN, true));
             flood2Portrayal.setField(world.flood2);
-            flood2Portrayal.setPortrayalForAll(new GeomPortrayal(Color.BLUE, true));
-
+            flood2Portrayal.setPortrayalForAll(new GeomPortrayal
+            		(Color.BLUE, true));
             agentPortrayal.setField(world.agents);
-            agentPortrayal.setPortrayalForAll(new GeomPortrayal(Color.MAGENTA, 150, true));
+            agentPortrayal.setPortrayalForAll(new GeomPortrayal
+            		(Color.MAGENTA, 150, true));
             //agentPortrayal.setPortrayalForAll(new GeomPortrayal());
 
             display.reset();

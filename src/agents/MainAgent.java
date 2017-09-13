@@ -177,8 +177,8 @@ public final class MainAgent implements Steppable	{
        findNewAStarPath(state);
        if (pathFromHomeToWork.isEmpty())	{
            System.out.println("Initialization of a Agent (" +homeTract
-           		+ ") failed: it is located in a part of the network that cannot access"
-           		+ "the given goal.");
+           		+ ") failed: it is located in a part of the network that cannot "
+           		+ "access the given goal.");
            return false;
        } else	{
            return true;
@@ -192,7 +192,8 @@ public final class MainAgent implements Steppable	{
    private void findNewAStarPath(MK_7 geoTest)	{
 
        // get the home and work Nodes with which this Agent is associated
-       Node currentJunction = geoTest.network.findNode(location.geometry.getCoordinate());
+       Node currentJunction = geoTest.network.findNode
+    		   (location.geometry.getCoordinate());
        Node destinationJunction = workNode;
 
        if (currentJunction == null)	{
@@ -295,7 +296,8 @@ public final class MainAgent implements Steppable	{
        // check to make sure the Agent has not reached the end
        // of the path already
        if ((pathDirection > 0 && indexOnPath >= pathFromHomeToWork.size())
-               || (pathDirection < 0 && indexOnPath < 0)) // depends on where you're going!
+               || (pathDirection < 0 && indexOnPath < 0))
+    	   		// depends on where you're going!
        {
     	   System.out.println(this + " has reached its DESTINATION");
            reachedGoal = true;
