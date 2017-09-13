@@ -55,8 +55,6 @@ public class MK_7 extends SimState	{
     //public GeomVectorField Households = new GeomVectorField();
     public GeomVectorField agents = new GeomVectorField();
     //public GeomVectorField ngoagents = new GeomVectorField();
-    //public GeomVectorField elderlyagents = new GeomVectorField();
-    //public GeomVectorField limitedactionsagents = new GeomVectorField();
 
     ///////////////////////////// Network ////////////////////////////////////////
     public GeomPlanarGraph network = new GeomPlanarGraph();
@@ -119,13 +117,11 @@ public class MK_7 extends SimState	{
 
         /*
         src/
-        data/
-            .shp, .dbf, .csv ...
+        	data/
+            	.shp, .dbf, .csv ...
         sim/
-        	app/
-        		geo/
-        			MK_2/
-        				.java files
+        	MK_7/
+        		.java files
          */
 
         try {
@@ -201,8 +197,6 @@ public class MK_7 extends SimState	{
             // clear any existing agents from previous runs
             agents.clear();
             //ngoagents.clear();
-            //elderlyagents.clear();
-            //limitedactionsagents.clear();
 
             //////////////////////////////////////////////////////////////////////
             /////////////////////////// AGENTS ///////////////////////////////////
@@ -225,19 +219,12 @@ public class MK_7 extends SimState	{
             //Households.setMBR(MBR);
             agents.setMBR(MBR);
             //ngoagents.setMBR(MBR);
-            //elderlyagents.setMBR(MBR);
-            //limitedactionsagents.setMBR(MBR);
 
             // Ensure that the spatial index is updated after all the agents move
             schedule.scheduleRepeating( agents.scheduleSpatialIndexUpdater(),
             		Integer.MAX_VALUE, 1.0);
             //schedule.scheduleRepeating( ngoagents.scheduleSpatialIndexUpdater(),
             //		Integer.MAX_VALUE, 1.0);
-            //schedule.scheduleRepeating( elderlyagents.scheduleSpatialIndexUpdater(),
-            //		Integer.MAX_VALUE, 1.0);
-            //schedule.scheduleRepeating( limitedactionsagents.scheduleSpatialIndexUpdater(),
-            //		Integer.MAX_VALUE, 1.0);
-
 
 
             /** Steppable that flips Agent paths once everyone reaches their destinations
@@ -325,19 +312,6 @@ public class MK_7 extends SimState	{
 	* @param agentfilename
 	* @return
 	*
-	* Here we set the 'goals', or destinations, which relate to ROAD_ID
-    * in NorfolkITNLSOA.csv/.shp...
-    *
-    * 30250 = Norfolk & Norwich Hospital
-    * 74858 = James Paget Hospital (Does not work!)
-    * 18081 = Queen Elizabeth Hospital
-    * 46728 = BRC Norwich Office
-    * 49307 = Sprowston Fire Station - BRC Fire & Emergency Support
-    *
-	* 	//Integer[] goals =	{	// MainAgent
-    *	//60708, 70353, 75417, 29565, 3715, 15816, 47794, 16561, 70035,
-    *	//55437, 98, 45, 987, 345, 5643, 234, 21, 8765, 10345
-    *	//};
 	*/
 	public ArrayList<String> agentGoals(String agentfilename) throws IOException{
 		String csvGoal = null;
@@ -396,9 +370,7 @@ public class MK_7 extends SimState	{
                 //System.out.println("Main Agent speed = " +mainAgentSpeed);
 
                 String homeTract = bits[3];
-                //String id_id = bits[3];
                 String ROAD_ID = bits[3];
-                //String workTract = bits[4];
 
                 Random randomiser = new Random();
                 String random = csvData.get(new Random().nextInt(csvData.size()));
@@ -411,24 +383,11 @@ public class MK_7 extends SimState	{
                 GeomPlanarGraphEdge goalEdge = idsToEdges.get(
                         (int) Double.parseDouble(goalTract));	//reads the .CSV column
                 		//goals[ random.nextInt(goals.length)]); // uses the hardcoded 'goals' from above
-                //System.out.println("startingEdge: " +startingEdge);
-                //System.out.println("idsToEdges: " +idsToEdges);
-                //System.out.println("goalEdge: " +goalEdge);
-                //System.out.println("goals: " +goals);
-                //System.out.println("homeNode: " +goals);
-                //System.out.println();
 
                 for (int i = 0; i < pop; i++)	{
                 	//pop; i++)	{ 	// NO IDEA IF THIS MAKES A DIFFERENCE!?!
                     agents.MainAgent a = new agents.MainAgent(this, homeTract, startingEdge, goalEdge);
-                    /*System.out.println(
-                    		"Main Agent " + i + ":	"
-            				+ " Home: " +homeTract + ";	"
-                    		+ "	Work: " +workTract + ";	"
-                    		//+ " Starting Edge: " +startingEdge + ";"
-                    		+ "	Pop: " +pop + ";	"
-                    		+ "	id_id: " +id_id + "; "
-                    		+ "	Road_ID: " +ROAD_ID);*/
+                    
                     boolean successfulStart = a.start(this);
                     //System.out.println("Starting...");
 
