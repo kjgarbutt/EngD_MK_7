@@ -255,10 +255,10 @@ public class MK_7WithUI extends GUIState	{
 
             // Put portrayals in order from bottom layer to top
             displayFrame.setVisible(true);
-            //display.attach(polyPortrayal, "LSOA");
-            //display.attach(flood2Portrayal, "FZ2 Zone");
-            //display.attach(flood3Portrayal, "FZ3 Zone");
-            //display.attach(roadsPortrayal, "Roads");
+            display.attach(polyPortrayal, "LSOA");
+            display.attach(flood2Portrayal, "FZ2 Zone");
+            display.attach(flood3Portrayal, "FZ3 Zone");
+            display.attach(roadsPortrayal, "Roads");
             display.attach(agentPortrayal, "Agents");
 
             ///////////////////////////// CHART //////////////////////////////////

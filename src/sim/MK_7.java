@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
+import com.linuxense.javadbf.*;
+import java.io.*;
 
 import sim.engine.SimState;
 import sim.field.geo.GeomVectorField;
@@ -313,7 +315,8 @@ public class MK_7 extends SimState	{
 
         addIntersectionNodes(network.nodeIterator(), junctions);
     }
-
+    
+    
 	/**
 	* ///////////////////////// Setup agentGoals /////////////////////////////////
 	* Read in the agent goals CSV
